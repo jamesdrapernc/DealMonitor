@@ -1,10 +1,8 @@
-const knex = require('knex'); 
-const knexConfig = require('../../knexfile'); 
+const knex = require('knex');
+const knexConfig = require('../../knexfile');
 
 const environment = process.env.NODE_ENV || 'development';
-
-// Open db connection
-const db = knex(knexConfig[environment]); 
+const db = knex(knexConfig[environment]);
 
 // Shutdown logic
 process.on('SIGINT', async () => {
