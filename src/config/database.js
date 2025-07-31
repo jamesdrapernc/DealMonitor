@@ -1,11 +1,23 @@
-// src/config/database.js - Database connection setup
-const knex = require('knex');
-const knexConfig = require('../../knexfile');
+const knex = require('knex'); 
+const knexConfig = require('../../knexfile'); 
 
-// Get the current environment or default to 'development'
 const environment = process.env.NODE_ENV || 'development';
 
-// Create and export the database connection
-const db = knex(knexConfig[environment]);
+// Open db connection
+const db = knex(knexConfig[environment]); 
 
-module.exports = db;
+// Shutdown logic
+process.on('SIGINT', async () => {
+    console.log('Closing db connection...'); 
+    await db.destroy();
+    process.exit(0); 
+});
+
+// Startup logic
+process.on('SIGTERM', async () => {
+    console.log('Opening db connection...'); 
+    await db.destroy();
+    process.exit(0); 
+});
+
+module.exports = db; 
