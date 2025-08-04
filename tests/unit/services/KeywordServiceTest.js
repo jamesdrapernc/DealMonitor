@@ -20,11 +20,22 @@ describe('KeywordService', () => {
     // Clear all mocks before each test
     jest.clearAllMocks();
     
-    // Create a fresh service instance
     keywordService = new KeywordService();
-    
-    // Get the mocked repository instance
     mockKeywordRepository = keywordService.keywordRepository;
+
+    // Always create all mock methods
+    mockKeywordRepository.exists = mockKeywordRepository.exists || jest.fn();
+    mockKeywordRepository.create = mockKeywordRepository.create || jest.fn();
+    mockKeywordRepository.findAll = mockKeywordRepository.findAll || jest.fn();
+    mockKeywordRepository.findById = mockKeywordRepository.findById || jest.fn();
+    mockKeywordRepository.update = mockKeywordRepository.update || jest.fn();
+    mockKeywordRepository.delete = mockKeywordRepository.delete || jest.fn();
+    mockKeywordRepository.searchByText = mockKeywordRepository.searchByText || jest.fn();
+    mockKeywordRepository.getStatistics = mockKeywordRepository.getStatistics || jest.fn();
+
+    // Mock console methods
+    jest.spyOn(console, 'log').mockImplementation();
+    jest.spyOn(console, 'error').mockImplementation();
   });
 
   describe('createKeyword', () => {

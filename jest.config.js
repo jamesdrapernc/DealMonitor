@@ -4,11 +4,12 @@ module.exports = {
   // Test environment
   testEnvironment: 'node',
 
-  // Test file patterns
+  // ✅ Updated: Custom test file patterns to match your naming convention
   testMatch: [
-    '**/tests/**/*.test.js',
-    '**/__tests__/**/*.js',
-    '**/?(*.)+(spec|test).js'
+    '**/tests/**/*Test.js',           // Your preferred pattern: keywordServiceTest.js
+    '**/tests/**/*.test.js',          // Standard pattern: KeywordService.test.js
+    '**/__tests__/**/*.js',           // Files in __tests__ folders
+    '**/?(*.)+(spec|test).js'         // Standard spec/test patterns
   ],
 
   // Coverage configuration

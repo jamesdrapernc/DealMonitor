@@ -48,7 +48,7 @@ class SubredditRepository {
             .where({id})
             .first(); 
 
-            return Keyword.fromDatabase(row); 
+            return Subreddit.fromDatabase(row); 
         } catch(error) {
             throw new Error(`Failed to find subreddit by ID: ${error.message}`);
         }
@@ -68,6 +68,27 @@ class SubredditRepository {
             return Subreddit.fromDatabase(row);
         } catch (error) {
             throw new Error(`Failed to find subreddit by name: ${error.message}`);
+        }
+    }
+
+    /**
+     * Search subreddits by name pattern
+     * @param {string} searchText - Text to search for in names
+     * @param {number} limit - Maximum results to return
+     * @returns {Promise<Subreddit[]>} Array of matching subreddits
+     */
+    async searchByName(searchText, limit = 50) {
+        try {
+            const searchPattern = `%${searchText}%`;
+            
+            const rows = await this.db(this.tableName)
+                .where('name', 'like', searchPattern)
+                .orderBy('name', 'asc')
+                .limit(limit);
+
+            return rows.map(row => Subreddit.fromDatabase(row));
+        } catch (error) {
+            throw new Error(`Failed to search subreddits: ${error.message}`);
         }
     }
 

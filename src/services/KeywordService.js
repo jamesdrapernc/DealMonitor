@@ -7,7 +7,7 @@ const db = require('../config/database');
  */
 class KeywordService {
     constructor() {
-        this.keywordRepository = new KeywordRepository(); 
+        this.keywordRepository = new KeywordRepository(db); 
     }
     
     /**
@@ -35,7 +35,7 @@ class KeywordService {
                 keyword: normalizedKeyword
             });
 
-            console.log("Created keyword: ${createdKeyword.keyword}"); 
+            console.log(`Created keyword: ${createdKeyword.keyword}`); 
             return createdKeyword;
         } catch(error) {
             console.log("Error creating keyword: ", error.message); 
@@ -148,7 +148,7 @@ class KeywordService {
                 return true; 
             }
             else {
-                throw new Error('Failed to delete keyword'): 
+                throw new Error('Failed to delete keyword');
             }
         } catch(error) {
             console.log(`Error deleting keyword: ${id}: `, error.message); 

@@ -155,8 +155,10 @@ const PostValidation = {
     page: Joi.number().integer().min(1).default(1),
     limit: Joi.number().integer().min(1).max(100).default(20),
     search: Joi.string().max(255).optional(),
-    hasLinks: Joi.boolean().optional()
-  })
+    hasLinks: Joi.boolean().optional(),              // ← Add this
+    sortBy: Joi.string().valid('title', 'created_at', 'updated_at').default('created_at'),    // ← Add this
+    sortOrder: Joi.string().valid('asc', 'desc').default('desc')  // ← Add this
+})
 };
 
 module.exports = {

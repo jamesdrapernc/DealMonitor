@@ -43,7 +43,7 @@ class Subreddit {
     /**
      * Validate if the name is acceptable
      */
-    static isValidTitle(name) {
+    static isValidName(name) {
         return name && typeof name === 'string' && 
         name.trim().length > 0 && 
         name.length < 500;
@@ -56,17 +56,17 @@ class Subreddit {
 const SubredditValidation = {
     // Schema for creating new subreddits
     create: Joi.object({
-        title: Joi.string().min(1).max(500).required()
+        name: Joi.string().min(1).max(500).required()
         .messages({
-            'string.empty': 'Title cannot be empty',
-            'string.max': 'Title must be less than 500 characters'
+            'string.empty': 'name cannot be empty',
+            'string.max': 'name must be less than 500 characters'
         }),
     }),
 
     // Schema for updating subreddits
     update: Joi.object({
         id: Joi.number().integer().required(),
-        title: Joi.string().min(1).max(500).optional()
+        name: Joi.string().min(1).max(500).optional()
     }),
 
     // Schema for query parameters
